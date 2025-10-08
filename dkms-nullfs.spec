@@ -3,7 +3,7 @@
 
 Name:       dkms-%{dkms_name}
 Version:    0.19
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A virtual file system that behaves like /dev/null
 License:    GPLv3+
 URL:        https://github.com/abbbi/nullfsvfs
@@ -48,8 +48,8 @@ cp -fr nullfs.c Makefile dkms.conf %{buildroot}%{_usrsrc}/%{dkms_name}-%{version
 %post
 dkms add -m %{dkms_name} -v %{version} -q --rpm_safe_upgrade || :
 # Rebuild and make available for the currently running kernel:
-dkms build -m %{dkms_name} -v %{version} -q || :
-dkms install -m %{dkms_name} -v %{version} -q --force || :
+dkms build -m %{dkms_name} -v %{version} -q --force
+dkms install -m %{dkms_name} -v %{version} -q --force
 
 %preun
 # Remove all versions from DKMS registry:
@@ -59,6 +59,10 @@ dkms remove -m %{dkms_name} -v %{version} -q --all --rpm_safe_upgrade || :
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
+* Wed Oct 08 2025 Simone Caronni <negativo17@gmail.com> - 0.19-2
+- Fix modules not getting rebuilt when reinstalling package.
+- Do not filter out as success module build steps.
+
 * Wed Jun 18 2025 Simone Caronni <negativo17@gmail.com> - 0.19-1
 - Update to 0.19.
 
