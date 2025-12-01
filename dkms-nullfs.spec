@@ -2,8 +2,8 @@
 %global dkms_name nullfs
 
 Name:       dkms-%{dkms_name}
-Version:    0.19
-Release:    2%{?dist}
+Version:    0.21
+Release:    1%{?dist}
 Summary:    A virtual file system that behaves like /dev/null
 License:    GPLv3+
 URL:        https://github.com/abbbi/nullfsvfs
@@ -59,6 +59,9 @@ dkms remove -m %{dkms_name} -v %{version} -q --all --rpm_safe_upgrade || :
 %{_usrsrc}/%{dkms_name}-%{version}
 
 %changelog
+* Mon Dec 01 2025 Simone Caronni <negativo17@gmail.com> - 0.21-1
+- Update to 0.21.
+
 * Wed Oct 08 2025 Simone Caronni <negativo17@gmail.com> - 0.19-2
 - Fix modules not getting rebuilt when reinstalling package.
 - Do not filter out as success module build steps.
