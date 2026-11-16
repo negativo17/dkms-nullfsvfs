@@ -15,6 +15,10 @@ Source1:    %{name}.conf
 # https://github.com/abbbi/nullfsvfs/commit/63661607ded4e3ee0ba35cf50e1166a2b203daeb
 Patch0:     %{dkms_name}-el9.patch
 %endif
+%if 0%{?rhel} == 10
+# EL 10.3+ backports the Linux 6.15 inode_operations->mkdir() change
+Patch1:     %{dkms_name}-el10.patch
+%endif
 
 BuildRequires:  sed
 
@@ -61,6 +65,7 @@ dkms remove -m %{dkms_name} -v %{version} -q --all --rpm_safe_upgrade || :
 %changelog
 * Mon Nov 16 2026 Simone Caronni <negativo17@gmail.com> - 0.28-1
 - Update to 0.28.
+- Fix build on EL 10.3+.
 
 * Wed Jul 01 2026 Simone Caronni <negativo17@gmail.com> - 0.27-1
 - Update to 0.27.
